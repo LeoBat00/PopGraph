@@ -8,6 +8,7 @@ export default function CustomNode({data:{label}}:NodeProps<{label:string}>) {
   return (
 
     <div className='customNode'>
+        <p>{label}</p>
         <div className="node">
             {label}
             <Handle type='target' position={Position.Bottom} style={{background:'#555'}}></Handle>

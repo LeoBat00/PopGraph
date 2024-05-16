@@ -3,12 +3,12 @@ import api from './api';
 
 interface Vertice {
   id: number;
-  label: string;
+  rotulo: string;
 }
 
-export class VerticeService {
+class VerticeService {
   async createVertice(rotulo: string): Promise<Vertice> {
-    const response = await axios.post<Vertice>('/vertice', { rotulo });
+    const response = await api.post<Vertice>('/vertice', { rotulo });
     return response.data;
   }
 
@@ -17,8 +17,8 @@ export class VerticeService {
     return response.data;
   }
 
-  async updateVertex(id: number, label: string): Promise<void> {
-    await axios.patch(`/vertice/${id}`, { label });
+  async updateVertex(id: number, rotulo: string): Promise<void> {
+    await axios.patch(`/vertice/${id}`, { rotulo });
   }
 
   async deleteVertex(id: number): Promise<void> {
