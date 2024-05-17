@@ -4,8 +4,8 @@ import 'reactflow/dist/style.css';
 import CustomNode from './CustomNode';
 
 const nodeTypes = {
-  'customNode': CustomNode,
-}
+  customNode: CustomNode,
+};
 
 const snapGrid = [45, 45];
 
@@ -22,42 +22,49 @@ const GraphFlow = ({ vertices, arestas, verticePos }) => {
     }));
 
     const newEdges = arestas.map(aresta => {
-      const sourceId = aresta.idVerticeOrigem ? String(aresta.idVerticeOrigem) : '';
-      const targetId = aresta.idVerticeDestino ? String(aresta.idVerticeDestino) : '';
-      const label = aresta.peso ? String(aresta.peso) : '';
+      const origemId = aresta.origem?.id;
+      const destinoId = aresta.destino?.id;
 
       return {
         id: String(aresta.id),
-        source: sourceId,
-        target: targetId,
-        label: label,
+        source: String(origemId),
+        target: String(destinoId),
+        label: String(aresta.peso),
+        style: { stroke : 'white', strokeWidth: 1}
+
       };
-    });
+    }).filter(edge => edge !== null);
 
     setNodes(newNodes);
     setEdges(newEdges);
   }, [vertices, arestas, verticePos]);
 
-    return (
-      <div className='containerGraph'>
-        <ReactFlow
-          translateExtent={[[0, 0], [1170, 855]]}
-          nodeExtent={[[0, 0], [1170, 855]]}
-          panOnDrag={false}
-          zoomOnScroll={false}
-          snapGrid={snapGrid}
-          snapToGrid={true}
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          nodeTypes={nodeTypes}
-        >
-          <Background variant={BackgroundVariant.Lines} color="cyan" gap={45} />
-        </ReactFlow>
-        <img className='uniforMap' src="/mapaUniforGrid.png" />
-      </div>
-    );
-  }
+
+
+  //teste
+  var width = 1170;
+  var height = 855;
+
+  return (
+  <div className='containerGraph' style={{ width: `${width}px`, height: `${height}px` }}>
+    <ReactFlow
+        translateExtent={[[0, 0], [width, height]]}
+        nodeExtent={[[0, 0], [width, height]]}
+        panOnDrag={false}
+        zoomOnScroll={false}
+        snapGrid={snapGrid}
+        snapToGrid={true}
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        nodeTypes={nodeTypes}
+      >
+        <img className='uniforMap' src="/mapaUniforGrid.png" alt="Mapa Unifor Grid" />
+        <Background variant={BackgroundVariant.Lines} color="cyan" gap={45} />
+      </ReactFlow>
+    </div>
+  );
+};
 
 export default GraphFlow;
