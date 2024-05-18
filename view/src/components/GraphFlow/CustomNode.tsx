@@ -1,30 +1,57 @@
 import React, { useState } from 'react';
 import { Background, Handle, NodeProps, Position } from 'reactflow';
 import './styles.css';
+import { Unstable_Popup as BasePopup} from '@mui/base/Unstable_Popup';
 
-export default function CustomNode({ data: { label } }: NodeProps<{ label: string }>) {
+
+export default function CustomNode(nodeInfo: NodeProps) {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleClick = () => {
     setIsSelected(!isSelected);
+
+  };
+
+  const nodeData = {
+    id: nodeInfo.id,
+    label: nodeInfo.data.label,
+    queue: 'null',
+    sells: 'null'
   };
 
   return (
-    <div className={`customNode ${isSelected ? 'selected' : ''}`} onClick={handleClick}>
-      <div className="node" style={{ backgroundColor: isSelected ? 'white' : 'black' }}>
-        {label}
-        <Handle type='target' position={Position.Bottom} style={{ background: '#555' }}></Handle>
-        <Handle type='source' position={Position.Bottom} style={{ background: '#555' }}></Handle>
-
-        <Handle type='target' position={Position.Top} style={{ background: '#555' }}></Handle>
-        <Handle type='source' position={Position.Top} style={{ background: '#555' }}></Handle>
-
-        <Handle type='target' position={Position.Left} style={{ background: '#555' }}></Handle>
-        <Handle type='source' position={Position.Left} style={{ background: '#555' }}></Handle>
-
-        <Handle type='target' position={Position.Right} style={{ background: '#555' }}></Handle>
-        <Handle type='source' position={Position.Right} style={{ background: '#555' }}></Handle>
+    <div>
+      <div 
+        className={`customNode ${isSelected ? 'selected' : ''}`} 
+        onClick={handleClick}
+        data-tip={`ID: ${nodeData.id}<br/>Label: ${nodeData.label}<br/>Queue: ${nodeData.queue}<br/>Sells: ${nodeData.sells}`}
+        data-html={true}
+      >
+        <div className="node" style={{ backgroundColor: isSelected ? 'white' : '#FFFA85' }}>
+          <p className='nodeName'>{nodeInfo.data.label}</p>
+          <Handle
+            position={Position.Top}
+            type="source"
+            style={{
+              background: "transparent",
+              top: "50%",
+              right: "50%",
+              transform: "translate(50%,-50%)"
+            }}
+          />
+          <Handle
+            position={Position.Top}
+            type="target"
+            style={{
+              background: "transparent",
+              top: "50%",
+              right: "50%",
+              transform: "translate(50%,-50%)"
+            }}
+          />      
+        </div>
       </div>
+ 
     </div>
   );
 }

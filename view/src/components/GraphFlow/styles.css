@@ -15,8 +15,12 @@
     align-items: center;
     border-radius: 50%;
     border-bottom-left-radius: 0px;
+    border: 2px solid black;
 }
-
+.nodeName{
+    color: black;
+    font-weight: bold;
+}
 .containerGraph{
 
     background-color: rgba(0, 0, 0, 0.192);
@@ -31,3 +35,24 @@
     z-Index:-1;
     opacity: 100%;
 }
+
+.react-flow__handle {
+    opacity: 0;
+  }
+
+  .popupbody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #191921;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    z-index: 1;
+    display: none;
+
+  }
