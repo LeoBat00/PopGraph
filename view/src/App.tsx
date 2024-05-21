@@ -3,6 +3,7 @@ import './App.css';
 import GraphFlow from './components/GraphFlow';
 import verticeService from './services/verticeService';
 import arestaService from './services/arestaService';
+import grafoService from './services/grafoService'; 
 
 function App() {
   const [vertices, setVertices] = useState([]);
@@ -13,7 +14,6 @@ function App() {
   const [rotuloOrigem, setRotuloOrigem] = useState('');
   const [rotuloDestino, setRotuloDestino] = useState('');
   const [pesoAresta, setPesoAresta] = useState(1);
-
 
   const pegarDados = async () => {
     try {
@@ -33,23 +33,44 @@ function App() {
     pegarDados();
   },[]);
 
+  const handleDeleteGrafo = async () => {
+    try {
+      await grafoService.deleteGrafo();
+      setVertices([]); 
+      setArestas([]);  
+      setVerticePos({}); 
+      console.log("Grafo deletado com sucesso");
+    } catch (error) {
+      console.error("Erro ao deletar grafo:", error);
+    }
+  };
 
   const handleAddVertice = async () => {
     try {
+      if (!newVerticerotulo.trim()) {
+        alert("O rotulo do vertice não pode ser vazio");
+        return;
+      }
+      
       const novoVertice = await verticeService.createVertice(newVerticerotulo);
       setVertices([...vertices, novoVertice]);
       setVerticePos({
         ...verticePos,
-        [novoVertice.id]: { x: 0, y: 0 }
+        [novoVertice.id]: { x: 1*45, y: 1*45 }
       });
       setnewVerticerotulo('');
     } catch (error) {
-      console.error("Erro ao criar novo vertice:", error);
+      console.error("Erro ao criar novo vértice:", error);
     }
   };
 
   const handleAddAresta = async () => {
     try {
+      if (!rotuloOrigem.trim() || !rotuloDestino.trim()) {
+        alert("Preencha os rótulos de origem e destino.");
+        return;
+      }
+      
       const novaAresta = await arestaService.addArestaByRotulos(rotuloOrigem, rotuloDestino, pesoAresta);
       console.log(novaAresta)
       pegarDados();
@@ -69,20 +90,20 @@ function App() {
             type="text"
             value={newVerticerotulo}
             onChange={(e) => setnewVerticerotulo(e.target.value)}
-            placeholder="Rotulo Vertice"
+            placeholder="Rótulo do Vértice"
           />
-          <button onClick={handleAddVertice}>Add Vertex</button>
+          <button onClick={handleAddVertice}>Adicionar Vértice</button>
         <input
             type="text"
             value={rotuloOrigem}
             onChange={(e) => setRotuloOrigem(e.target.value)}
-            placeholder="Rotulo Origem"
+            placeholder="Rótulo de Origem"
           />
           <input
             type="text"
             value={rotuloDestino}
             onChange={(e) => setRotuloDestino(e.target.value)}
-            placeholder="Rotulo Destino"
+            placeholder="Rótulo de Destino"
           />
           <input
             type="number"
@@ -90,8 +111,8 @@ function App() {
             onChange={(e) => setPesoAresta(Number(e.target.value))}
             placeholder="Peso"
           />
-          <button onClick={handleAddAresta}>Add Edge</button>
-
+          <button onClick={handleAddAresta}>Adicionar Aresta</button>
+          <button onClick={handleDeleteGrafo}>Deletar Grafo</button>
       </div>
       <div className="mainGraph">
         <GraphFlow vertices={vertices} arestas={arestas} verticePos={verticePos} />

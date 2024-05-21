@@ -1,7 +1,7 @@
 import api from './api';
 import verticeService from './verticeService';
 
-interface Aresta {
+export interface Aresta {
   id: number;
   idVerticeOrigem: number;
   idVerticeDestino: number;

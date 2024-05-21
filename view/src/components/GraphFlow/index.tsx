@@ -12,8 +12,6 @@ const edgeTypes = {
   customEdge: CustomEdge,
 };
 
-const snapGrid = [45, 45];
-
 const GraphFlow = ({ vertices, arestas, verticePos }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -22,7 +20,7 @@ const GraphFlow = ({ vertices, arestas, verticePos }) => {
     const newNodes = vertices.map(vertice => ({
       id: String(vertice.id),
       data: { label: vertice.rotulo },
-      position: verticePos[vertice.id] || { x: 0, y: 0 },
+      position: verticePos[vertice.id] || { x: 1*45, y: 1*45 },
       type: 'customNode'
     }));
 
@@ -48,27 +46,36 @@ const GraphFlow = ({ vertices, arestas, verticePos }) => {
 
 
   //teste
-  var width = 1170;
-  var height = 855;
+  const width = 1170;
+  const height = 855;
 
   return (
-  <div className='containerGraph' style={{ width: `${width}px`, height: `${height}px` }}>
+  <div className='containerGraph' style={{width: `${width}px`,height: `${height}px`,}}>
     <ReactFlow
         translateExtent={[[0, 0], [width, height]]}
         nodeExtent={[[0, 0], [width, height]]}
         panOnDrag={false}
         zoomOnScroll={false}
-        snapGrid={snapGrid}
-        snapToGrid={true}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
+        panOnScroll={false}
+        zoomOnPinch={false}
       >
-        <img className='uniforMap' src="/mapaUniforGrid.png" alt="Mapa Unifor Grid" />
-        <Background variant={BackgroundVariant.Lines} color="#100f1f" gap={45} />
+        <Background
+            variant={BackgroundVariant.Dots}
+            color="#100f1f"
+            gap={45}
+            style={{
+            backgroundImage: 'url(/mapaUniforGrid2.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            }}
+        />      
       </ReactFlow>
     </div>
   );

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import api from './api';
 
-interface Vertice {
+export interface Vertice {
   id: number;
   rotulo: string;
 }

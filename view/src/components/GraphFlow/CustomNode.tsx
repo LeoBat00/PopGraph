@@ -27,8 +27,10 @@ export default function CustomNode(nodeInfo: NodeProps) {
         data-tip={`ID: ${nodeData.id}<br/>Label: ${nodeData.label}<br/>Queue: ${nodeData.queue}<br/>Sells: ${nodeData.sells}`}
         data-html={true}
       >
-        <div className="node" style={{ backgroundColor: isSelected ? 'white' : '#FFFA85' }}>
+        <div className="containerName">
           <p className='nodeName'>{nodeInfo.data.label}</p>
+        </div>
+        <div className="node">
           <Handle
             position={Position.Top}
             type="source"
