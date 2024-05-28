@@ -1,0 +1,28 @@
+.nodeInfoPanel {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 300px;
+    color: #ccc;
+    height: 100%;
+    padding: 20px;
+    background-color: #14141D;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 10;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    font-size: 16px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    cursor: pointer;
+  }
+  

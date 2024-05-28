@@ -4,6 +4,10 @@ import api from './api';
 export interface Vertice {
   id: number;
   rotulo: string;
+  posicaoX: number;
+  posicaoY: number;
+  temCarrinho: boolean;
+  filaPessoas: number;
 }
 
 class VerticeService {

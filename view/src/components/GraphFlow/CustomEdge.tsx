@@ -15,7 +15,7 @@ export const CustomEdge = React.memo((edgeInfo: EdgeProps) => {
       <path
         className="react-flow__edge-path"
         data-edgeid={edgeInfo.id}
-        style={{ stroke: "white", strokeWidth: 3}}
+        style={{ stroke: "black", strokeWidth: 3}}
         d={edgePath}
         markerEnd={edgeInfo.markerEnd}
       />

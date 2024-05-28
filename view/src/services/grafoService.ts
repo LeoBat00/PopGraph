@@ -11,6 +11,13 @@ class GrafoService {
     async deleteGrafo(): Promise<void> {
         return api.delete<void>('/grafo');
     }
+
+    async buscarArovreMinima(id:number):  Promise<Grafo> {
+        const response = await api.get(`/grafo/${id}`);
+        return response.data;
+      }
+
+    
 }
 
 export default new GrafoService();

@@ -1,0 +1,106 @@
+.controlPanel{
+    background-color: #242337;
+    width: 100%;
+    height: 100%;
+    border-bottom-right-radius: 20px;
+}
+
+.headerControl{
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    background-color: #191921;
+    padding: 10px;
+}
+
+.Dropdown{
+    padding: 10px;
+}
+
+.controlButtons {
+    display: flex;
+    margin: 0 10px;
+    margin-top: 10px;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid #7e3af2;
+  }
+
+.controlButton {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    color: #7e3af2;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .controlButton.active {
+    background-color: #7e3af2;
+    color: #fff;
+    border-radius: 20px;
+  }
+  
+  .controlButton:last-child.active {
+    border-radius: 20px; 
+  }
+  
+
+.headerControl h1{
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+}   
+
+
+.controlMain{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    padding: 10px;
+}
+
+.setupContainer, .createContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    padding: 15px;
+    border : 1px solid #7426D6;
+    border-radius: 16px;
+}
+
+.inputControl{
+    display: flex;
+    align-items: center;
+    background-color: #191921;
+    padding: 10px;
+    color: rgba(214, 214, 214, 0.603);
+    border-style: none;
+    border-radius: 8px;
+    justify-content: space-between;
+
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.buttonControl{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #7e3af2;
+    color: white;
+    border-style: none;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
