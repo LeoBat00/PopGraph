@@ -66,13 +66,19 @@ const ControlesPanel = ({ onAddVertice, onAddAresta, onDeleteGrafo, onArvoreMini
       <div className="controlMain">
         {activeButton === 'setup' ? (
           <div className="setupContainer">
-            <input
-              type='text'
+            <p className='textControl'>Aonde voce está?</p>
+            <select className='selectControl'
               value={verticeOrigem}
               onChange={(e) => setVerticeOrigem(e.target.value)}
-              placeholder="Rótulo do Vértice Origem"
-            />
-            <button onClick={handleSearchArvoreMinima}>Buscar Menor Caminho</button>
+            >
+              <option value="" disabled></option>
+              {vertices.map((vertice) => (
+                <option key={vertice.id} value={vertice.rotulo}>
+                  {vertice.rotulo}
+                </option>
+              ))}
+            </select>
+            <button className='buttonControl' onClick={handleSearchArvoreMinima}>Buscar Menor Caminho</button>
           </div>
         ) : (
           <div className="createContainer">

@@ -104,3 +104,19 @@
     cursor: pointer;
     margin-bottom: 10px;
 }
+
+.textControl{
+    color: white;
+    margin-bottom: 5px;
+}
+.selectControl{
+    display: flex;
+    align-items: center;
+    background-color: #14141D;
+    padding: 10px;
+    color: rgba(214, 214, 214, 0.918);
+    border-style: none;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+}
