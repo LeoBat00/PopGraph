@@ -21,8 +21,8 @@ class VerticeService {
     return response.data;
   }
 
-  async updateVertex(id: number, rotulo: string): Promise<void> {
-    await axios.patch(`/vertice/${id}`, { rotulo });
+  async updateVertice(vertice: Vertice): Promise<void> {
+    await api.post('/vertice/update', vertice);
   }
 
   async deleteVertex(id: number): Promise<void> {

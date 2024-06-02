@@ -12,6 +12,7 @@ function App() {
   const [vertices, setVertices] = useState([]);
   const [arestas, setArestas] = useState([]);
   const [verticePos, setVerticePos] = useState({});
+  const [caminhoMinimo, setCaminhoMinimo] = useState([]);
 
   const pegarDados = async () => {
     try {
@@ -20,6 +21,7 @@ function App() {
       setArestas(dadosArestas);
       setVertices(dadosVertices);
       console.log("Dados pegos com sucesso");
+      console.log(dadosVertices);
     } catch (error) {
       console.error("Erro ao pegar dados", error);
     }
@@ -31,13 +33,51 @@ function App() {
 
   const handleSearchArvoreMinima = async (id) => {
     try {
-      const grafo = await grafoService.buscarArovreMinima(id);
+      const grafoCaminhoMinimo = await grafoService.buscarArovreMinima(id);
       console.log("Árvore mínima encontrada com sucesso");
-      console.log(grafo);
+      console.log(grafoCaminhoMinimo);
+  
+      // Encontrar o vértice com a menor distância, ignorando o vértice de origem especificado
+      const verticeMenorDistancia = grafoCaminhoMinimo.distancias.reduce((minVertice, atualVertice) => {
+        if (atualVertice.vertice.id !== id && (minVertice === null || atualVertice.distancia < minVertice.distancia)) {
+          return atualVertice;
+        }
+        return minVertice;
+      }, null);
+  
+      console.log("Vértice com a menor distância:", verticeMenorDistancia);
+  
+      if (verticeMenorDistancia) {
+        const predecessor = grafoCaminhoMinimo.predecessores.find(predecessor => predecessor.vertice.id === verticeMenorDistancia.vertice.id);
+  
+        let caminhoArestas = predecessor.caminho;
+  
+        console.log("Caminho das arestas:", caminhoArestas);
+        
+        caminhoArestas = caminhoArestas.flatMap(aresta => {
+          const novoCaminho = [aresta];
+          if (aresta % 2 === 0) {
+              const novaAresta = aresta + 1 
+              novoCaminho.push(novaAresta);
+          } else {
+              const novaAresta = aresta - 1 
+              novoCaminho.push(novaAresta)
+          }
+          return novoCaminho;
+      });
+      
+      console.log("Novo caminho das arestas:", caminhoArestas);        console.log("Caminho das arestas:", caminhoArestas);
+
+        setCaminhoMinimo(caminhoArestas);
+      } else {
+        console.warn("Não foi possível encontrar um vértice com distância maior que zero.");
+      }
     } catch (error) {
       console.error("Erro ao buscar árvore mínima:", error);
     }
   };
+  
+  
 
   const handleDeleteGrafo = async () => {
     try {
@@ -45,6 +85,7 @@ function App() {
       setVertices([]);
       setArestas([]);
       setVerticePos({});
+      setCaminhoMinimo([]);
       console.log("Grafo deletado com sucesso");
     } catch (error) {
       console.error("Erro ao deletar grafo:", error);
@@ -73,6 +114,14 @@ function App() {
     }
   };
 
+  const handleUpdateVertice = (updatedVertice) => {
+    setVertices((prevVertices) =>
+      prevVertices.map((vertice) =>
+        vertice.id === updatedVertice.id ? updatedVertice : vertice
+      )
+    );
+  };
+
   return (
     <div className="appContainer">
       <div className="mainContent">
@@ -87,7 +136,13 @@ function App() {
         </div>
         <div className="graphFlowContent">
           <ReactFlowProvider>
-            <GraphFlow vertices={vertices} arestas={arestas} verticePos={verticePos} />
+            <GraphFlow 
+              vertices={vertices} 
+              arestas={arestas} 
+              verticePos={verticePos} 
+              caminhoMinimo={caminhoMinimo}  // Passar o estado para o GraphFlow
+              onUpdateVertice={handleUpdateVertice}
+            />
           </ReactFlowProvider>
         </div>
       </div>

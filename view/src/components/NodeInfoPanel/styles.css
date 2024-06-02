@@ -5,13 +5,16 @@
     width: 300px;
     color: #ccc;
     height: 100%;
-    padding: 20px;
+    padding: 30px;
     background-color: #14141D;
     border: 1px solid #ccc;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     z-index: 10;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
   }
   
@@ -25,4 +28,143 @@
     color: white;
     cursor: pointer;
   }
+
+  .imgInfo{
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 3px white solid;
+  }
+  .inputsContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .inputContainer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .inputContainer label{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .inputContainer p{
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .inputContainer input[type=number] {
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #242337;
+    text-align: center;
+    border: 1px solid #7426D6;
+    color: #ffff;
+}
+
+.inputContainer input[type=number]::-webkit-outer-spin-button,
+.inputContainer input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+  .buttonInput{
+    background-color: #7426D6;
+    color: #ffff;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .cardapioContainer{
+    background-color: #242337;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cardapioTitle{
+    font-size: 16px;
+    font-style: italic;
+
+    color: #ffff;
+    margin-bottom: 10px;
+  }
+
+  .cardapioContainer label{
+    display: flex;
+    margin: 5px 0;
+    justify-content: space-between;
+  }
+
+  .cardapioOptionName{
+    font-size: 16px;
+    color: #ffffff8a;
+  }
+
+  .inputCheckbox {
+    position: relative;
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 2px solid #7326D6;
+    border-radius: 50%;
+    outline: none;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
   
+  .inputCheckbox:checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #7326D6;
+    transform: translate(-50%, -50%);
+  }
+
+  .inputCheckboxOptions {
+    position: relative;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 2px solid #7326D6;
+    border-radius: 50%;
+    outline: none;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  
+  .inputCheckboxOptions:checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #7326D6;
+    transform: translate(-50%, -50%);
+  }
