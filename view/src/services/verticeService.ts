@@ -47,6 +47,10 @@ class VerticeService {
   async deleteVertex(id: number): Promise<void> {
     await axios.delete(`/vertice/${id}`);
   }
+
+  async retirarCarrinhoVertice(idCarrinho: number): Promise<void> {
+    await api.put(`/vertice/${idCarrinho}`);
+  }
 }
 
 export default new VerticeService();

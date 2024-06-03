@@ -17,7 +17,7 @@ export default function CustomNode(nodeInfo: NodeProps) {
     }
   };
 
-  const backgroundImage = nodeInfo.data.temCarrinho ?   '/Totem.png' : '/carrinhoIcon.png';
+  const backgroundImage = nodeInfo.data.carrinho === null ?  '/Totem.png' : '/carrinhoIcon.png';
 
   return (
     <div className="customNode" onClick={handleClick}>
