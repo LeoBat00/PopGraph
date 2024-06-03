@@ -55,16 +55,17 @@ function App() {
         caminhoArestas = caminhoArestas.flatMap(aresta => {
           const novoCaminho = [aresta];
           if (aresta % 2 === 0) {
-              const novaAresta = aresta + 1 
+              const novaAresta = aresta - 1 
               novoCaminho.push(novaAresta);
           } else {
-              const novaAresta = aresta - 1 
+              const novaAresta = aresta + 1 
               novoCaminho.push(novaAresta)
           }
           return novoCaminho;
       });
       
-      console.log("Novo caminho das arestas:", caminhoArestas);        console.log("Caminho das arestas:", caminhoArestas);
+      console.log("Novo caminho das arestas:", caminhoArestas);        
+      console.log("Caminho das arestas:", caminhoArestas);
 
         setCaminhoMinimo(caminhoArestas);
       } else {

@@ -3,9 +3,9 @@ import './styles.css';
 
 const Dropdown = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState("Select an option");
+    const [selectedOption, setSelectedOption] = useState("Dijkstra");
 
-    const options = ["Djaskra", "Primm", "A*"];
+    const options = ["Dijkstra", "Primm", "A*"];
     
 
     const toggleDropdown = () => {
