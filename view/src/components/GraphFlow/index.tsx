@@ -86,6 +86,7 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
           label: vertice.rotulo,
           temCarrinho: vertice.temCarrinho,
           filaPessoas: vertice.trafegoPessoas,
+          carrinho: vertice.carrinho,
           onClick: handleNodeClick
         },
         position: savedNode ? savedNode.position : (verticePos[vertice.id] || { x: vertice.posicaoX, y: vertice.posicaoY }),
@@ -162,6 +163,7 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
             label: selectedNode.data.label,
             temCarrinho: selectedNode.data.temCarrinho,
             filaPessoas: selectedNode.data.filaPessoas,
+            carrinho: selectedNode.data.carrinho,
             position: selectedNode.position
           }}
           onUpdateVertice={onUpdateVertice}

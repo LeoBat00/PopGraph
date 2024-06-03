@@ -36,9 +36,7 @@ function App() {
       const grafoCaminhoMinimo = await grafoService.buscarArovreMinima(id);
       console.log("Árvore mínima encontrada com sucesso");
       console.log(grafoCaminhoMinimo);
-  
-      // Encontrar o vértice com a menor distância, ignorando o vértice de origem especificado
-      const verticeMenorDistancia = grafoCaminhoMinimo.distancias.reduce((minVertice, atualVertice) => {
+        const verticeMenorDistancia = grafoCaminhoMinimo.distancias.reduce((minVertice, atualVertice) => {
         if (atualVertice.vertice.id !== id && (minVertice === null || atualVertice.distancia < minVertice.distancia)) {
           return atualVertice;
         }
@@ -140,7 +138,7 @@ function App() {
               vertices={vertices} 
               arestas={arestas} 
               verticePos={verticePos} 
-              caminhoMinimo={caminhoMinimo}  // Passar o estado para o GraphFlow
+              caminhoMinimo={caminhoMinimo}  
               onUpdateVertice={handleUpdateVertice}
             />
           </ReactFlowProvider>

@@ -8,6 +8,7 @@ export default function CustomNode(nodeInfo: NodeProps) {
       nodeInfo.data.onClick(null, {
         id: nodeInfo.id,
         data: nodeInfo.data,
+        carrinho: nodeInfo.data.carrinho,
         position: nodeInfo.position || { x: 0, y: 0 }
       });
       console.log('Vertice Clicado:', nodeInfo.data);

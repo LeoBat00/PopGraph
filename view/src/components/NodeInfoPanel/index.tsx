@@ -6,13 +6,16 @@ const NodeInfoPanel = ({ nodeData, onClose, onUpdateVertice }) => {
   const [temCarrinho, setTemCarrinho] = useState(nodeData.temCarrinho);
   const [filaPessoas, setFilaPessoas] = useState(nodeData.filaPessoas);
   const [position, setPosition] = useState(nodeData.position);
-  const [cafe, setCafe] = useState(false);
-  const [pipoca, setPipoca] = useState(false);
+
+  const [carrinho, setCarrinho] = useState(nodeData.carrinho);
+  console.log(nodeData);
 
   useEffect(() => {
     setTemCarrinho(nodeData.temCarrinho);
     setFilaPessoas(nodeData.filaPessoas);
     setPosition(nodeData.position);
+    setCarrinho(nodeData.carrinho);
+
   }, [nodeData]);
 
   const handleUpdateVertice = async () => {
@@ -24,8 +27,7 @@ const NodeInfoPanel = ({ nodeData, onClose, onUpdateVertice }) => {
         rotulo: nodeData.label,
         posicaoX: position.x,
         posicaoY: position.y,
-        cafe,
-        pipoca
+        carrinho: carrinho
       };
       await verticeService.updateVertice(updatedVertice);
       console.log('Vértice atualizado com sucesso!');
@@ -35,6 +37,10 @@ const NodeInfoPanel = ({ nodeData, onClose, onUpdateVertice }) => {
       console.error('Erro ao atualizar vértice:', error);
     }
   };
+
+  const handleUpdateCarrinho = async () =>{
+      
+  }
 
   return (
     <div className="nodeInfoPanel">
@@ -64,7 +70,7 @@ const NodeInfoPanel = ({ nodeData, onClose, onUpdateVertice }) => {
               <p className='cardapioOptionName'>Café</p>
               <input className='inputCheckboxOptions' 
                 type="checkbox"
-                checked={cafe}
+                checked={carrinho.cafe}
                 onChange={(e) => setCafe(e.target.checked)}
               />
             </label>
@@ -72,7 +78,7 @@ const NodeInfoPanel = ({ nodeData, onClose, onUpdateVertice }) => {
               <p className='cardapioOptionName'>Pipoca</p>
               <input className='inputCheckboxOptions'
                 type="checkbox"
-                checked={pipoca}
+                checked={carrinho.pipoca}
                 onChange={(e) => setPipoca(e.target.checked)}
               />
             </label>
