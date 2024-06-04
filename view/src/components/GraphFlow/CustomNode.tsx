@@ -24,6 +24,11 @@ export default function CustomNode(nodeInfo: NodeProps) {
       <div className="containerName">
         <p className='nodeName'>{nodeInfo.data.label}</p>
       </div>
+
+      <div className="containerFila">
+        <p className='nodeFila'>{nodeInfo.data.filaPessoas}</p>
+      </div>
+
       <div
         className="node"
         style={{

@@ -16,21 +16,22 @@ export const CustomEdge = React.memo((edgeInfo: EdgeProps) => {
   return (
     <>
       <path
-        className="react-flow__edge-path"
+        id={edgeInfo.id}
         data-edgeid={edgeInfo.id}
         style={edgeInfo.style}
         d={edgePath}
         markerEnd={edgeInfo.markerEnd}
         onClick={handleClick}
       />
-      
+ 
       <text>
         <textPath
           href={`#${edgeInfo.id}`}
-          style={{ fontSize: "50px" }}
+          style={{ fontSize: "16px", fill: "black", fontWeight: "bold"}}
           startOffset="50%"
           textAnchor="middle"
         >
+          {edgeInfo.label}
         </textPath>
       </text>
 

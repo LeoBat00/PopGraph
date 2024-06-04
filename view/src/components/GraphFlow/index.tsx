@@ -94,20 +94,26 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
       };
     });
 
-    const newEdges = arestas.map(aresta => {
+    const newEdges = arestas
+    .filter(aresta => aresta.id % 2 !== 0) 
+    .map(aresta => {
       const origemId = aresta.origem?.id;
       const destinoId = aresta.destino?.id;
       const isHighlighted = caminhoMinimo.includes(aresta.id);
-
+  
       return {
         id: String(aresta.id),
         type: 'customEdge',
         source: String(origemId),
         target: String(destinoId),
         label: String(aresta.peso),
-        style: { stroke: isHighlighted ? '#A763FF' : 'black', strokeWidth: isHighlighted ? 5 : 2}
+        style: { 
+          stroke: isHighlighted ? '#A763FF' : 'black', 
+          strokeWidth: isHighlighted ? 5 : 2 
+        }
       };
     });
+  
 
     setNodes(newNodes);
     setEdges(newEdges);

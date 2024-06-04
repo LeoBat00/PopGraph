@@ -40,6 +40,27 @@
     font-weight: bold;
     font-size: 12px;
 }
+
+.containerFila{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    top: 0px;
+    right: -45px;
+    background-color: rgba(80, 80, 80, 0.432);
+    border-radius: 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.nodeFila{
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-style: italic;
+    
+}
 .containerGraph{
     background-color: rgba(0, 0, 0, 0.192);
     position: relative;
@@ -76,3 +97,5 @@
     display: none;
 
   }
+
+ 
