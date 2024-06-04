@@ -1,11 +1,13 @@
-.controlPanel{
+.controlPanel {
     background-color: #242337;
     width: 100%;
     height: 100%;
     border-bottom-right-radius: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-.headerControl{
+.headerControl {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,7 +16,7 @@
     padding: 10px;
 }
 
-.Dropdown{
+.Dropdown {
     padding: 10px;
 }
 
@@ -25,7 +27,7 @@
     overflow: hidden;
     border-radius: 20px;
     border: 1px solid #7e3af2;
-  }
+}
 
 .controlButton {
     display: flex;
@@ -37,72 +39,69 @@
     border: none;
     border-radius: 20px;
     padding: 8px;
-
     cursor: pointer;
     font-size: 16px;
-  }
-  
-  .controlButton.active {
+}
+
+.controlButton.active {
     background-color: #7e3af2;
     color: #fff;
     border-radius: 20px;
     font-weight: bold;
-  }
-  
-  .controlButton:last-child.active {
-    border-radius: 20px; 
-  }
-  
+}
 
-.headerControl h1{
+.controlButton:last-child.active {
+    border-radius: 20px;
+}
 
+.headerControl h1 {
     color: white;
     font-size: 32px;
     font-weight: bold;
-}   
-
-.controlTop{
-    height: 20%;
 }
-.controlMain{
+
+.controlMain {
     display: flex;
     flex-direction: column;
     align-items: start;
     width: 100%;
     padding: 10px;
-    height: 80%;
+    flex-grow: 1;
 }
 
-.setupContainer, .createContainer{
+.setupContainer, .createContainer {
     display: flex;
     flex-direction: column;
     align-items: start;
     width: 100%;
     padding: 15px;
-    border : 1px solid #7426D6;
+    border: 1px solid #7426D6;
     border-radius: 16px;
-    height: 100%;
-    justify-content: space-between;
+    flex-grow: 1;
 }
 
-.setupMain, .createMain{
+.setupMain, .createMain {
     background-color: #242337;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 70%;
-    padding-bottom: 30px;
-    width:100%;
+    height: 100%;
+    width: 100%;
 }
-.selectOptions{
+
+
+.setupMain{
+    justify-content: space-between;
+
+}
+.selectOptions {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: start;
     margin-bottom: 10px;
-
 }
-.inputControl{
+
+.inputControl {
     display: flex;
     align-items: center;
     background-color: #191921;
@@ -111,12 +110,11 @@
     border-style: none;
     border-radius: 8px;
     justify-content: space-between;
-
     width: 100%;
     margin-bottom: 10px;
 }
 
-.buttonControl{
+.buttonControl {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -130,16 +128,17 @@
     transition: all 0.5s;
 }
 
-.buttonControl:hover{
+.buttonControl:hover {
     background-color: #7426D6;
     transition: all 0.5s;
 }
 
-.textControl{
+.textControl {
     color: white;
     margin-bottom: 5px;
 }
-.selectControl{
+
+.selectControl {
     display: flex;
     align-items: center;
     background-color: #14141D;
@@ -149,10 +148,9 @@
     border-radius: 8px;
     width: 100%;
     margin-bottom: 10px;
-
 }
 
-.buttonControlSearch{
+.buttonControlSearch {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -167,29 +165,28 @@
     box-shadow: 0px 0px 5px 0px #000000;
 }
 
-
-.logsTitle{
+.logsTitle {
     color: white;
-    font-size: 20px;
+    font-size: 16px;
+    margin-bottom: 5px;
+
 }
-.logs{
+
+.logs {
     width: 100%;
-    height: 30%;
-}
-.logsHeader{
     height: 20%;
 }
 
-.logsContainer{
-    background-color: #14141D ;
+.logsContainer {
+    background-color: #14141D;
     color: #7426D6;
     border-radius: 16px;
-    height: 80%;
     width: 100%;
+    min-height: 70%;
 }
 
 
-.descricao{
+.descricao {
     width: 100%;
     padding: 3px;
 }

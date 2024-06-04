@@ -107,20 +107,20 @@ const ControlesPanel = ({ onAddVertice, onAddAresta, onDeleteGrafo, onArvoreMini
                 <p>Acesse a aba de criar para adicionar novos vértices e arestas. Em seguida, clique em Iniciar Busca para encontrar o caminho mais curto até o seu destino.
                 </p>
               </div>
-              </div>
-            
-              
-            
               <button className='buttonControlSearch' onClick={handleSearchArvoreMinima}>Iniciar Busca</button>
+
+
+
               </div>
-              
-            <div className="logs">
-              <div className="logsHeader">
+            
+              <div className="logs">
                 <p className='logsTitle'>Logs</p>
-              </div>
                 <div className="logsContainer">
                 </div>
             </div>
+            
+              </div>
+      
           
             </div>
             
@@ -162,13 +162,7 @@ const ControlesPanel = ({ onAddVertice, onAddAresta, onDeleteGrafo, onArvoreMini
 
             </div>
            
-            <div className="logs">
-              <div className="logsHeader">
-                <p className='logsTitle'>Logs</p>
-              </div>
-                <div className="logsContainer">
-                </div>
-            </div>
+        
           </div>
           
         )}
