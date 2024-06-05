@@ -111,7 +111,8 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
         label: String(aresta.peso),
         style: { 
           stroke: isHighlighted ? '#A763FF' : 'black', 
-          strokeWidth: isHighlighted ? 5 : 2 
+          strokeWidth: isHighlighted ? 5 : 2 ,
+          transition: 'all 6s'
         }
       };
     });

@@ -95,7 +95,7 @@ const ControlesPanel = ({ onAddVertice, onAddAresta, onDeleteGrafo, onArvoreMini
                     <option
                       key={vertice.id}
                       value={vertice.rotulo}
-                      style={{ color: vertice.temCarrinho ? 'cyan' : 'white' }}
+                      style={{ color: vertice.carrinho ? 'white' : 'blue' }}
                     >
                       {vertice.rotulo}
                     </option>
