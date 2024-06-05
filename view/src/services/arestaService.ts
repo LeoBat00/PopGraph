@@ -28,6 +28,17 @@ class ArestaService {
       throw new Error('Vértice de origem ou destino não encontrado');
     }
 
+    if(peso<0) throw new Error('Peso não pode ser negativo');
+
+    const arestas = await this.getAllArestas();
+    console.log("ARESTAS", arestas)
+  
+    const arestaExistente = arestas.find(a => a.origem.rotulo === verticeOrigem.rotulo && a.destino.rotulo === verticeDestino.rotulo);
+    console.log("ARESTA::", arestaExistente)
+
+    if (arestaExistente) {
+      throw new Error('Aresta já existe');
+    }
     const novaAresta = {
       idVerticeOrigem: verticeOrigem.id,
       idVerticeDestino: verticeDestino.id,

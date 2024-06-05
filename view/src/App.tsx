@@ -24,6 +24,7 @@ function App() {
       setVertices(dadosVertices);
       console.log("Dados pegos com sucesso");
       console.log(dadosVertices);
+      console.log(dadosArestas)
     } catch (error) {
       console.error("Erro ao pegar dados", error);
     }
@@ -122,8 +123,7 @@ function App() {
       pegarDados();
     } catch (error) {
       console.error("Erro ao adicionar aresta:", error);
-      alert("Verifique se os vértices de origem e destino existem!");
-
+      alert(error);
     }
   };
 
