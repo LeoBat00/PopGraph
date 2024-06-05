@@ -23,7 +23,7 @@ class ArestaService {
     const vertices = await verticeService.getAllVertices();
     const verticeOrigem = vertices.find(v => v.rotulo === rotuloOrigem);
     const verticeDestino = vertices.find(v => v.rotulo === rotuloDestino);
-
+    
     if (!verticeOrigem || !verticeDestino) {
       throw new Error('Vértice de origem ou destino não encontrado');
     }

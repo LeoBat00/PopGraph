@@ -112,6 +112,7 @@ function App() {
       });
     } catch (error) {
       console.error("Erro ao criar novo vértice:", error);
+      alert("Já existe um vertice com esse nome!");
     }
   };
 
@@ -121,6 +122,8 @@ function App() {
       pegarDados();
     } catch (error) {
       console.error("Erro ao adicionar aresta:", error);
+      alert("Verifique se os vértices de origem e destino existem!");
+
     }
   };
 

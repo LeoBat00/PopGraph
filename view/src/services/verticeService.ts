@@ -15,6 +15,13 @@ export interface Vertice {
 
 class VerticeService {
   async createVertice(rotulo: string, posicaoX: number, posicaoY: number, trafegoPessoas: number, carrinho?: Carrinho): Promise<Vertice> {
+    const vertices = await this.getAllVertices();
+    const verticeIgual = vertices.find(v => v.rotulo === rotulo);
+    
+    if (verticeIgual) {
+      throw new Error('Já existe um vértice com esse rótulo');
+    }
+
     const defaultCarrinho: Carrinho = {
       pipoca: true,
       refrigerante: true,
