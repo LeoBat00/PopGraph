@@ -24,18 +24,40 @@ export const CustomEdge = React.memo((edgeInfo: EdgeProps) => {
         onClick={handleClick}
       />
  
+  
       <text>
         <textPath
           href={`#${edgeInfo.id}`}
-          style={{ fontSize: "16px", fill: "black", fontWeight: "bold"}}
+          style={{ 
+            fontSize: "16px", 
+            fill: "black", 
+            fontWeight: "bold", 
+          }}
           startOffset="50%"
           textAnchor="middle"
-        >
+          dominantBaseline="middle"
+          dy="-10"  
+          >
           {edgeInfo.label}
         </textPath>
       </text>
-
-    
+      <text>
+        <textPath
+          href={`#${edgeInfo.id}`}
+          style={{ 
+            fontSize: "14px", 
+            fill: "white", 
+            fontWeight: "bold", 
+            textShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)"  
+          }}
+          startOffset="50%"
+          textAnchor="middle"
+          dominantBaseline="middle"
+          dy="-10"  
+          >
+          {edgeInfo.label}
+        </textPath>
+      </text>
     </>
   );
 });

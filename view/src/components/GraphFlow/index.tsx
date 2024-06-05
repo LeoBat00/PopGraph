@@ -15,7 +15,7 @@ const edgeTypes = {
   customEdge: CustomEdge,
 };
 
-const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVertice }) => {
+const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVertice, verticeOrigem, verticeMenorCaminho, }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [rfInstance, setRfInstance] = useState(null);
@@ -87,6 +87,8 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
           temCarrinho: vertice.temCarrinho,
           filaPessoas: vertice.trafegoPessoas,
           carrinho: vertice.carrinho,
+          verticeOrigemID: verticeOrigem,
+          verticeMenorCaminhoID: verticeMenorCaminho,
           onClick: handleNodeClick
         },
         position: savedNode ? savedNode.position : (verticePos[vertice.id] || { x: vertice.posicaoX, y: vertice.posicaoY }),

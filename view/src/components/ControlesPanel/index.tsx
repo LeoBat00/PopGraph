@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import Dropdown from '../Dropdown';
 import './styles.css';
 
-const ControlesPanel = ({ onAddVertice, onAddAresta, onDeleteGrafo, onArvoreMinima, vertices }) => {
+const ControlesPanel = ({ onAddVertice, onAddAresta, onDeleteGrafo, onArvoreMinima, vertices, setCardapio }) => {
   const [newVerticerotulo, setnewVerticerotulo] = useState('');
   const [rotuloOrigem, setRotuloOrigem] = useState('');
   const [rotuloDestino, setRotuloDestino] = useState('');
   const [pesoAresta, setPesoAresta] = useState(1);
   const [verticeOrigem, setVerticeOrigem] = useState('');
   const [activeButton, setActiveButton] = useState('setup');
-  const [cardapio, setCardapio] = useState('')
-
+  const [selectedCardapio, setSelectedCardapio] = useState('');
 
   const handleAddVertice = () => {
     if (newVerticerotulo.trim()) {
@@ -34,24 +33,26 @@ const ControlesPanel = ({ onAddVertice, onAddAresta, onDeleteGrafo, onArvoreMini
 
   const handleSearchArvoreMinima = () => {
     const vertice = vertices.find(v => v.rotulo === verticeOrigem);
-    if (vertice) {
-      onArvoreMinima(vertice.id);
+    if (vertice && selectedCardapio) {
+      onArvoreMinima(vertice.id, selectedCardapio);
     } else {
-      alert("Vértice com o rótulo fornecido não encontrado");
+      alert("O Vértice ou o cardapio não foram selecionado.");
     }
+  };
+
+  const handleCardapioChange = (e) => {
+    setSelectedCardapio(e.target.value);
+    setCardapio(e.target.value);
   };
 
   return (
     <div className="controlPanel">
-
-    <div className="controlTop">
-      <div className="headerControl">
+      <div className="controlTop">
+        <div className="headerControl">
           <img src="/UniforLogo.png" alt="Unifor Logo" />
           <h1>PopGraph</h1>
         </div>
-
         <Dropdown />
-
         <div className="controlButtons">
           <button
             className={`controlButton ${activeButton === 'setup' ? 'active' : ''}`}
@@ -66,67 +67,53 @@ const ControlesPanel = ({ onAddVertice, onAddAresta, onDeleteGrafo, onArvoreMini
             Criar
           </button>
         </div>
-    </div>
-
-     
-
+      </div>
       <div className="controlMain">
         {activeButton === 'setup' ? (
           <div className="setupContainer">
-            
             <div className="setupMain">
               <div className="selectOptions">
-              <p className='textControl'>Escolha o seu cardapio</p>
-              <select className='selectControl'
-                value={cardapio}
-                onChange={(e) => setCardapio(e.target.value)}
-              >
-                <option value="" ></option>
-                <option value="cafe" >Café</option>
-                <option value="pipoca">Pipoca</option>
-              </select>
+                <p className='textControl'>Escolha o seu cardapio</p>
+                <select className='selectControl'
+                  value={selectedCardapio}
+                  onChange={handleCardapioChange}
+                >
+                  <option value="" ></option>
+                  <option value="cafe">Café</option>
+                  <option value="pipoca">Pipoca</option>
+                  <option value="chocolate">Chocolate</option>
+                  <option value="refrigerante">Refrigerante</option>
 
-
-              <p className='textControl'>Aonde voce está?</p>
-              <select className='selectControl'
-                value={verticeOrigem}
-                onChange={(e) => setVerticeOrigem(e.target.value)}
-              >
-                <option value="" disabled></option>
-                {vertices.map((vertice) => (
-                  <option
-                    key={vertice.id}
-                    value={vertice.rotulo}
-                    style={{ color: vertice.temCarrinho ? 'cyan' : 'white' }}
-                  >
-                    {vertice.rotulo}
-                  </option>
-                ))}
-              </select>
-              <div className="descricao">
-                <p>Acesse a aba de criar para adicionar novos vértices e arestas. Em seguida, clique em Iniciar Busca para encontrar o caminho mais curto até o seu destino.
-                </p>
+                </select>
+                <p className='textControl'>Aonde você está?</p>
+                <select className='selectControl'
+                  value={verticeOrigem}
+                  onChange={(e) => setVerticeOrigem(e.target.value)}
+                >
+                  <option value="" disabled></option>
+                  {vertices.map((vertice) => (
+                    <option
+                      key={vertice.id}
+                      value={vertice.rotulo}
+                      style={{ color: vertice.temCarrinho ? 'cyan' : 'white' }}
+                    >
+                      {vertice.rotulo}
+                    </option>
+                  ))}
+                </select>
+                <div className="descricao">
+                  <p>Acesse a aba de criar para adicionar novos vértices e arestas. Em seguida, clique em Iniciar Busca para encontrar o caminho mais curto até o seu destino.</p>
+                </div>
+                <button className='buttonControlSearch' onClick={handleSearchArvoreMinima}>Iniciar Busca</button>
               </div>
-              <button className='buttonControlSearch' onClick={handleSearchArvoreMinima}>Iniciar Busca</button>
-
-
-
-              </div>
-            
               <div className="logs">
                 <p className='logsTitle'>Logs</p>
-                <div className="logsContainer">
-                </div>
-            </div>
-            
+                <div className="logsContainer"></div>
               </div>
-      
-          
             </div>
-            
+          </div>
         ) : (
           <div className="createContainer">
-
             <div className="createMain">
               <p style={{ color: 'white' }}>Vertice</p>
               <input className='inputControl'
@@ -137,7 +124,6 @@ const ControlesPanel = ({ onAddVertice, onAddAresta, onDeleteGrafo, onArvoreMini
               />
               <button className='buttonControl' onClick={handleAddVertice}>Adicionar Vértice</button>
               <p style={{ color: 'white' }}>Aresta</p>
-
               <input className='inputControl'
                 type="text"
                 value={rotuloOrigem}
@@ -158,18 +144,10 @@ const ControlesPanel = ({ onAddVertice, onAddAresta, onDeleteGrafo, onArvoreMini
               />
               <button className='buttonControl' onClick={handleAddAresta}>Adicionar Aresta</button>
               <button className='buttonControl' onClick={onDeleteGrafo}>Deletar Grafo</button>
-
-
             </div>
-           
-        
           </div>
-          
         )}
-
-      
       </div>
-    
     </div>
   );
 };
