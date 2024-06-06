@@ -20,6 +20,8 @@ const NodeInfoPanel = ({ nodeData, onClose, onUpdateVertice }) => {
 
       if (updatedCarrinho === null) {
         await verticeService.retirarCarrinhoVertice(nodeData.id);
+      }else if (updatedCarrinho !== null) {
+        await handleUpdateCarrinho(updatedCarrinho);
       }
 
       const updatedVertice = {
@@ -31,9 +33,7 @@ const NodeInfoPanel = ({ nodeData, onClose, onUpdateVertice }) => {
         carrinho: updatedCarrinho,
       };
 
-      if (updatedCarrinho !== null) {
-        await handleUpdateCarrinho(updatedCarrinho);
-      }
+    
 
       await verticeService.updateVertice(updatedVertice);
 
@@ -44,22 +44,14 @@ const NodeInfoPanel = ({ nodeData, onClose, onUpdateVertice }) => {
       console.error('Erro ao atualizar vértice:', error);
     }
   };
-
+  
   const handleUpdateCarrinho = async (carrinhoData) => {
     try {
-      if (carrinhoData === null) {
-        await carrinhoService.removeCarrinho(nodeData.carrinho.id);
-      } else {
-        if (nodeData.carrinho?.id) {
-          await carrinhoService.updateCarrinho({
-            ...carrinhoData,
-            id: nodeData.carrinho.id,
-          });
-        } else {
-          const newCarrinho = await carrinhoService.addCarrinho(carrinhoData);
-          setCarrinho(newCarrinho);
-        }
-      }
+        await carrinhoService.updateCarrinho({
+          ...carrinhoData,
+          id: nodeData.carrinho.id
+        });
+      
     } catch (error) {
       console.error('Erro ao atualizar carrinho:', error);
     }

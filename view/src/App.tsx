@@ -43,8 +43,7 @@ function App() {
       const verticesFiltrados = grafoCaminhoMinimo.distancias.filter(verticeDist => verticeDist.vertice.carrinho !== null);
 
       const verticeMenorDistancia = verticesFiltrados.reduce((minVertice, atualVertice) => {
-        if ( atualVertice.vertice.id !== id &&
-          (minVertice === null || atualVertice.distancia < minVertice.distancia) && atualVertice.vertice.carrinho[itemCardapio]) {
+        if ((minVertice === null || atualVertice.distancia < minVertice.distancia) && atualVertice.vertice.carrinho[itemCardapio]) {
           return atualVertice;
         }
         return minVertice;

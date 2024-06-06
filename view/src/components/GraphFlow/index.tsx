@@ -20,10 +20,10 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
   const [selectedNode, setSelectedNode] = useState(null);
 
   const handleNodeClick = (event, node) => {
-    if (node && node.position) {
+    if (node) {
       setSelectedNode({
         ...node,
-        position: node.position || { x: 0, y: 0 }
+        position: node.position 
       });
     } else {
       console.warn('Erro, "undefined"', node);
@@ -31,17 +31,7 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
   };
 
   const handleNodeDragStop = async (event, node) => {
-    if (node && node.position) {
-      const updatedNodes = nodes.map(n => {
-        if (n.id === node.id) {
-          return {
-            ...n,
-            position: node.position
-          };
-        }
-        return n;
-      });
-      setNodes(updatedNodes);
+    if (node) {
       const vertice = {
         id: node.id,
         rotulo: node.data.label,
