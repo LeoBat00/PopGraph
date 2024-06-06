@@ -4,8 +4,7 @@ import 'reactflow/dist/style.css';
 import CustomNode from './CustomNode';
 import { CustomEdge } from './CustomEdge';
 import NodeInfoPanel from '../NodeInfoPanel';
-
-const flowKey = 'example-flow';
+import VerticeService from '../../services/verticeService';
 
 const nodeTypes = {
   customNode: CustomNode,
@@ -15,11 +14,9 @@ const edgeTypes = {
   customEdge: CustomEdge,
 };
 
-const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVertice, verticeOrigem, verticeMenorCaminho, }) => {
+const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVertice, verticeOrigem, verticeMenorCaminho }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [rfInstance, setRfInstance] = useState(null);
-  const { setViewport } = useReactFlow();
   const [selectedNode, setSelectedNode] = useState(null);
 
   const handleNodeClick = (event, node) => {
@@ -33,7 +30,7 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
     }
   };
 
-  const handleNodeDragStop = (event, node) => {
+  const handleNodeDragStop = async (event, node) => {
     if (node && node.position) {
       const updatedNodes = nodes.map(n => {
         if (n.id === node.id) {
@@ -45,40 +42,25 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
         return n;
       });
       setNodes(updatedNodes);
-  
-      onSave();
+      const vertice = {
+        id: node.id,
+        rotulo: node.data.label,
+        posicaoX: node.position.x,
+        posicaoY: node.position.y,
+        temCarrinho: node.data.temCarrinho,
+        filaPessoas: node.data.filaPessoas,
+        carrinho: node.data.carrinho
+      };
+      await VerticeService.updateVertice(vertice);
     }
   };
 
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
 
-  const onSave = useCallback(() => {
-    if (rfInstance) {
-      const flow = rfInstance.toObject();
-      localStorage.setItem(flowKey, JSON.stringify(flow));
-    }
-  }, [rfInstance]);
-
-  const onRestore = useCallback(() => {
-    const restoreFlow = async () => {
-      const flow = JSON.parse(localStorage.getItem(flowKey));
-      if (flow) {
-        const { x = 0, y = 0, zoom = 1 } = flow.viewport;
-        setNodes(flow.nodes || []);
-        setEdges(flow.edges || []);
-        setViewport({ x, y, zoom });
-      }
-    };
-
-    restoreFlow();
-  }, [setNodes, setViewport]);
-
   useEffect(() => {
-    const flow = JSON.parse(localStorage.getItem(flowKey));
-
-    const newNodes = vertices.map(vertice => {
-      const savedNode = flow?.nodes?.find(node => node.id === String(vertice.id));
-      return {
+    const fetchVertices = async () => {
+      const fetchedVertices = await VerticeService.getAllVertices();
+      const newNodes = fetchedVertices.map(vertice => ({
         dragHandle: false,
         id: String(vertice.id),
         data: {
@@ -91,40 +73,37 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
           verticeMenorCaminhoID: verticeMenorCaminho,
           onClick: handleNodeClick
         },
-        position: savedNode ? savedNode.position : (verticePos[vertice.id] || { x: vertice.posicaoX, y: vertice.posicaoY }),
+        position: { x: vertice.posicaoX, y: vertice.posicaoY },
         type: 'customNode'
-      };
-    });
+      }));
 
-    const newEdges = arestas
-    .filter(aresta => aresta.id % 2 !== 0) 
-    .map(aresta => {
-      const origemId = aresta.origem?.id;
-      const destinoId = aresta.destino?.id;
-      const isHighlighted = caminhoMinimo.includes(aresta.id);
-  
-      return {
-        id: String(aresta.id),
-        type: 'customEdge',
-        source: String(origemId),
-        target: String(destinoId),
-        label: String(aresta.peso),
-        style: { 
-          stroke: isHighlighted ? '#A763FF' : 'black', 
-          strokeWidth: isHighlighted ? 5 : 2 ,
-          transition: 'stroke 0.5s'
-        }
-      };
-    });
-  
+      const newEdges = arestas
+        .filter(aresta => aresta.id % 2 !== 0)
+        .map(aresta => {
+          const origemId = aresta.origem?.id;
+          const destinoId = aresta.destino?.id;
+          const isHighlighted = caminhoMinimo.includes(aresta.id);
 
-    setNodes(newNodes);
-    setEdges(newEdges);
-  }, [vertices, arestas, verticePos, caminhoMinimo, setNodes, setEdges]);
+          return {
+            id: String(aresta.id),
+            type: 'customEdge',
+            source: String(origemId),
+            target: String(destinoId),
+            label: String(aresta.peso),
+            style: { 
+              stroke: isHighlighted ? '#A763FF' : 'black', 
+              strokeWidth: isHighlighted ? 5 : 2 ,
+              transition: 'stroke 0.5s'
+            }
+          };
+        });
 
-  useEffect(() => {
-    onRestore();
-  }, [onRestore]);
+      setNodes(newNodes);
+      setEdges(newEdges);
+    };
+
+    fetchVertices();
+  }, [vertices, arestas, verticePos, caminhoMinimo, verticeOrigem, verticeMenorCaminho]);
 
   return (
     <div className='containerGraph' style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -135,11 +114,10 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        onInit={setRfInstance}
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
         onNodeClick={handleNodeClick}
         onNodeDragStop={handleNodeDragStop}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
       >
         <Background
           variant={BackgroundVariant.Dots}
@@ -160,10 +138,7 @@ const GraphFlow = ({ vertices, arestas, verticePos, caminhoMinimo, onUpdateVerti
             pointerEvents: 'none'
           }}
         />
-        <Panel position="top-right">
-          <button onClick={onSave}>save</button>
-          <button onClick={onRestore}>restore</button>
-        </Panel>
+        
       </ReactFlow>
       {selectedNode && (
         <NodeInfoPanel
